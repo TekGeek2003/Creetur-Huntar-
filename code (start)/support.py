@@ -113,7 +113,7 @@ def outline_creator(frame_dict, padding=4):
 					pygame.SRCALPHA
 				)
 				# kepp the squal black
-				surf.fill((0, 0, 0, 255))
+				surf.fill((0, 0, 0, 0))
 
 				# ensure a surface with per-pixel alpha so for mask.from_surface()
 				try:

@@ -1,5 +1,5 @@
 import pygame
-from game_data import MONSTER_DATA
+from game_data import MONSTER_DATA, ATTACK_DATA
 from random import randint
 
 class Monster:
@@ -59,8 +59,11 @@ class Monster:
             'recovery': self.get_stat('recovery'),
         }
 
-    def get_abilities(self):
-        return [ability for lvl, ability in self.abilities.items() if self.level >= lvl]
+    def get_abilities(self, all = True):
+        if all:
+            return [ability for lvl, ability in self.abilities.items() if self.level >= lvl]
+        else:
+            return [ability for lvl, ability in self.abilities.items() if self.level >= lvl and ATTACK_DATA[ability]['cost'] < self.energy]
 
     def get_info(self):
         return (
