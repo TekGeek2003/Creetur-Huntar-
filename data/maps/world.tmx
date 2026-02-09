@@ -312,7 +312,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Coast" visible="0">
+ <objectgroup id="9" name="Coast">
   <properties>
    <property name="side" value="topright"/>
    <property name="terrain" value="grass_i"/>
