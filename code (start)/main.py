@@ -44,19 +44,16 @@ class Game:
             1: Monster('Friolera', 29),
             2: Monster('Larvea', 3),
             3: Monster('Atrox', 24),
-            4: Monster('Sparchu', 24),
-            5: Monster('Gulfin', 24),
-            6: Monster('Jacana', 2),
-            7: Monster('Pouch', 3),
-            8: Monster('Pouch', 100),
-            9: Monster('Gulfin', 100),
-            10: Monster('Cindrill', 100)
+            # 4: Monster('Sparchu', 24),
+            # 5: Monster('Gulfin', 24),
+            # 6: Monster('Jacana', 2),
+            # 7: Monster('Pouch', 3),
         }
 
         self.dummy_monsters = {
-            0: Monster('Atrox', 50),
-            1: Monster('Sparchu', 3),
-            2: Monster('Gulfin', 5),
+            0: Monster('Atrox', 100),
+            1: Monster('Sparchu', 100),
+            2: Monster('Gulfin', 100),
             3: Monster('Jacana', 2),
             4: Monster('Pouch', 3)
         }
