@@ -48,19 +48,10 @@ class Game:
             1: Monster('Friolera', 29),
             2: Monster('Larvea', 3),
             3: Monster('Atrox', 24),
-            # 4: Monster('Sparchu', 24),
-            # 5: Monster('Gulfin', 24),
-            # 6: Monster('Jacana', 2),
-            # 7: Monster('Pouch', 3),
-        }
-        
-
-        self.dummy_monsters = {
-            0: Monster('Atrox', 5),
-            1: Monster('Sparchu', 6),
-            # 2: Monster('Gulfin', 7),
-            # 3: Monster('Jacana', 2),
-            # 4: Monster('Pouch', 3)
+            4: Monster('Sparchu', 24),
+            5: Monster('Gulfin', 24),
+            6: Monster('Jacana', 2),
+            7: Monster('Pouch', 3),
         }
 
         # groups
@@ -82,6 +73,7 @@ class Game:
 
         self.import_assets()
         self.setup(self.tmx_maps['world'], 'house')
+        self.audio['overworld'].play(-1)
 
         # overlays
         self.dialog_tree = None
@@ -114,6 +106,9 @@ class Game:
             'bold': pygame.font.Font(join('graphics/fonts/dogicapixelbold.otf'), 20),
         }
         self.bg_frames = import_folder_dict('graphics/backgrounds')
+        self.star_animation_frames = import_folder('graphics/other/star animation')
+
+        self.audio = audio_importer('audio')
     
     def setup(self, tmx_map, player_start_pos):
         # Clear the map
@@ -178,7 +173,8 @@ class Game:
                     create_dialog=self.create_dialog,
                     collision_sprites=self.collision_sprites,
                     radius=obj.properties.get('radius', 80),
-                    nurse = obj.properties['character_id'] == 'Nurse'
+                    nurse = obj.properties['character_id'] == 'Nurse',
+                    notice_sound = self.audio['notice']
                 )
 
     # dialog system
@@ -213,6 +209,8 @@ class Game:
 
             self.player.unblock()
         elif not character.character_data['defeated']:
+            self.audio['overworld'].stop()
+            self.audio['battle'].play(-1)
             self.transition_target = Battle(
                 player_monsters = self.player_monsters, 
                 opponent_monsters = character.monsters, 
@@ -220,11 +218,12 @@ class Game:
                 bg_surf = self.bg_frames[character.character_data['biome']], 
                 fonts = self.fonts, 
                 end_battle = self.end_battle, 
-                character = character)
+                character = character,
+                sounds = self.audio)
             self.tint_mode = 'tint'
         else:
             self.player.unblock()
-
+            self.check_evolution()
 
     # transition system
     def transition_check(self):
@@ -258,12 +257,13 @@ class Game:
             self.display_surface.blit(self.tint_surf, (0,0))
 
     def end_battle(self, character):
+        self.audio['battle'].stop()
         self.transition_target = 'level'
         self.tint_mode = 'tint'
         if character:
             character.character_data['defeated'] = True
             self.create_dialog(character)
-        elif self.evolution:
+        elif not self.evolution:
             self.player.unblock()
             self.check_evolution()
 
@@ -271,12 +271,18 @@ class Game:
         for index, monster in self.player_monsters.items():
             if monster.evolution:
                 if monster.level == monster.evolution[1]:
+                    self.audio['evolution'].play()
                     self.player.block()
-                    self.evolution = Evolution(self.monster_frames['monsters'], monster.name, monster.evolution[0], self.fonts['bold'], self.end_evolution)
+                    self.evolution = Evolution(self.monster_frames['monsters'], monster.name, monster.evolution[0], self.fonts['bold'], self.end_evolution, self.star_animation_frames)
+                    self.player_monsters[index] = Monster(monster.evolution[0], monster.level)
+        if not self.evolution:
+            self.audio['overworld'].play(-1)
 
     def end_evolution(self):
         self.evolution = None
         self.player.unblock()
+        self.audio['evolution'].stop()
+        self.audio['overworld'].play(-1)
 
     # monster encounters
     def check_monster(self):
@@ -289,6 +295,8 @@ class Game:
         if sprites and self.player.direction:
             self.encounter_timer.duration = randint(800, 2500)
             self.player.block()
+            self.audio['overworld'].stop()
+            self.audio['battle'].play(-1)
             self.transition_target = Battle(
                 player_monsters = self.player_monsters, 
                 opponent_monsters = {index:Monster(monster, sprites[0].level + randint(-3,3)) for index, monster in enumerate(sprites[0].monsters)}, 
@@ -296,7 +304,8 @@ class Game:
                 bg_surf = self.bg_frames[sprites[0].biome], 
                 fonts = self.fonts, 
                 end_battle = self.end_battle, 
-                character = None)
+                character = None,
+                sounds = self.audio)
             self.tint_mode = 'tint'
 
     def run(self):

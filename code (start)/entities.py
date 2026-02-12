@@ -54,7 +54,7 @@ class Entity(pygame.sprite.Sprite):
         self.direction = (0, 0)
 
 class Character(Entity):
-    def __init__(self, pos, frames, groups, facing_direction, character_data, player, create_dialog, collision_sprites, radius, nurse):
+    def __init__(self, pos, frames, groups, facing_direction, character_data, player, create_dialog, collision_sprites, radius, nurse, notice_sound):
         super().__init__(pos, frames, groups, facing_direction)
         self.character_data = character_data
         self.player = player
@@ -74,6 +74,7 @@ class Character(Entity):
             'look around': Timer(1500, autostart = True, repeat = True, func = self.random_view_direction),
             'notice': Timer(500, func = self.start_move)
         }
+        self.notice_sound = notice_sound
 
     def random_view_direction(self):
         if self.can_rotate:
@@ -90,6 +91,7 @@ class Character(Entity):
         ):
             self.has_noticed = True # NPC knows they noticed the player
             self.player.noticed = True # Player gets the !
+            self.notice_sound.play()
             self.timers['notice'].activate()
 
     def has_los(self):

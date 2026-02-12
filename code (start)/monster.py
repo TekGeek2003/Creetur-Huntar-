@@ -21,7 +21,6 @@ class Monster:
         self.max_xp = 1000
         self.level_up = self.level * 150
         self.evolution = MONSTER_DATA[self.name]['evolve']
-        print(self.evolution)
 
         self.xp_bar_width = 50
         self.xp_bar_height = 5
