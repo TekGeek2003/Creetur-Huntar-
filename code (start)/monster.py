@@ -20,6 +20,8 @@ class Monster:
         self.xp = 0
         self.max_xp = 1000
         self.level_up = self.level * 150
+        self.evolution = MONSTER_DATA[self.name]['evolve']
+        print(self.evolution)
 
         self.xp_bar_width = 50
         self.xp_bar_height = 5
@@ -85,6 +87,11 @@ class Monster:
             self.xp = amount - (self.level_up - self.xp)
             self.level_up = self.level * 150
 
+    def stat_limiter(self):
+        self.health = max(0, self.health, self.get_stat('max_health'))
+        self.energy = max(0, self.energy, self.get_stat('max_energy'))
+
     def update(self, dt):
+        self.stat_limiter()
         if not self.paused:
             self.initiative += self.get_stat('speed') * dt
