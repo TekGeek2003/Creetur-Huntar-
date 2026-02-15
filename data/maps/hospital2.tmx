@@ -56,7 +56,7 @@
  <objectgroup id="7" name="Water"/>
  <objectgroup id="8" name="Monsters"/>
  <objectgroup id="9" name="Collisions">
-  <object id="13" x="55.4047" y="181.076" width="395.136" height="302.333"/>
+  <object id="13" x="56.711" y="182.382" width="393.83" height="269.675"/>
   <object id="14" x="-5.77444" y="712.73" width="154.26" height="64.3437"/>
   <object id="15" x="239.227" y="710.668" width="351.003" height="69.7057"/>
   <object id="16" x="524.236" y="3.29968" width="145.598" height="709.843"/>
