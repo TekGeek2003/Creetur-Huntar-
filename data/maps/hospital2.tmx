@@ -43,7 +43,7 @@
    </properties>
    <point/>
   </object>
-  <object id="12" name="Character" x="286.934" y="374.101">
+  <object id="12" name="Character" x="289.547" y="434.192">
    <properties>
     <property name="character_id" value="Nurse"/>
     <property name="entity" value="npc"/>
@@ -55,7 +55,7 @@
  <objectgroup id="6" name="Coast"/>
  <objectgroup id="7" name="Water"/>
  <objectgroup id="8" name="Monsters"/>
- <objectgroup id="9" name="Collisions">
+ <objectgroup id="9" name="Collisions" visible="0">
   <object id="13" x="56.711" y="182.382" width="393.83" height="269.675"/>
   <object id="14" x="-5.77444" y="712.73" width="154.26" height="64.3437"/>
   <object id="15" x="239.227" y="710.668" width="351.003" height="69.7057"/>
