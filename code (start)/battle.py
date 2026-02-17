@@ -227,7 +227,12 @@ class Battle:
         ability = choice(self.current_monster.monster.get_abilities())
         random_target = choice(self.player_sprites.sprites()) if ATTACK_DATA[ability]['target'] == 'player' else choice(self.opponent_sprites.sprites())
         self.current_monster.activate_attack(random_target, ability)
-        ability = choice(self.current_monster.monster.get_abilities(all = False))
+        abilities = self.current_monster.monster.get_abilities(all=False)
+
+        if not abilities:
+            return # skip attack or handle differently
+
+        ability = choice(abilities)
         target_type = ATTACK_DATA.get(ability, {}).get('target')
         # ATTACK_DATA target is from player's perspective:
         # - 'opponent' means the player's foe -> for an opponent user this maps to player sprites
