@@ -230,7 +230,7 @@ class Battle:
         abilities = self.current_monster.monster.get_abilities(all=False)
 
         if not abilities:
-            return # skip attack or handle differently
+            return # skip attack or handle different
 
         ability = choice(abilities)
         target_type = ATTACK_DATA.get(ability, {}).get('target')
