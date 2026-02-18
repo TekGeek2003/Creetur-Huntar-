@@ -1,4 +1,4 @@
-# Creetur-Huntar-
+# Creetur-Huntar-💥💪👾🕹️💻🎮
 
 Prepare to go head to head with different types of creeturs by going head to head in heated battles! My new RPG, Creetur Huntar is now available to launch from any terminal. 
 
