@@ -188,7 +188,7 @@ class Game:
                         # NPC (Non-Player Character) faces player
                         character.change_facing_direction(self.player.rect.center)
 
-                        # Show dialog on Window
+                        # Show dialog on game Window
                         self.create_dialog(character)
                         character.can_rotate = False
 
