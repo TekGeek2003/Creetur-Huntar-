@@ -49,5 +49,5 @@ class DialogSprite(pygame.sprite.Sprite):
         pygame.draw.rect(surf, COLORS['pure white'], surf.get_frect(topleft = (0,0)),0, 4)
         surf.blit(text_surf, text_surf.get_frect(center = (width / 2, height / 2)))
  
-        self.image = text_surf
+        self.image = surf
         self.rect = self.image.get_frect(midbottom = character.rect.midtop + vector(0,-10))
