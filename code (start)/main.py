@@ -21,6 +21,11 @@ def debug_print_maps():
             except Exception as e:
                 print(f"Error loading map '{name}': {e}")
 
+import json
+from pathlib import Path
+import sys
+SAVE_PATH = Path.home() /".creetur_save.json"
+
 from sprites import Sprite, AnimatedSprite, MonsterPatchSprite, BorderSprite, CollidableSprite, TransitionSprite
 from entities import Player, Character
 from groups import AllSprites
