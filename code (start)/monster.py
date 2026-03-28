@@ -28,6 +28,33 @@ class Monster:
     def __repr__(self):
         return f'monster: {self.name}, lvl: {self.level}'
 
+    #Save game system
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'level': self.level,
+            'health': self.health,
+            'energy': self.energy,
+            'xp': self.xp,
+            'initiative': self.initiative',
+            'evolution': self.evolution,
+        }
+        
+    @classmethod
+    def from_dict(cls, data):
+        m = cls(data['name'], int(data.get('level', 1)))
+        # restore numeric data fields if present
+        if 'health' in data:
+            m.health = data['health']
+        if 'energy' in data:
+            m.energy = data['energy']
+        if 'xp' in data:
+            m.xp = data['xp']
+        if 'initiative' in data:
+            m.initiative = data['initiative']
+        if 'evolution' in data:
+            m.evolution = data['evolution']
+        return m
     def draw_xp_bar(self, surface, x, y):
         # background
         bg_rect = pygame.Rect(x, y, self.xp_bar_width, self.xp_bar_height)
