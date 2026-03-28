@@ -36,7 +36,7 @@ class Monster:
             'health': self.health,
             'energy': self.energy,
             'xp': self.xp,
-            'initiative': self.initiative',
+            'initiative': self.initiative,
             'evolution': self.evolution,
         }
         
