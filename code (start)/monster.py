@@ -55,6 +55,7 @@ class Monster:
         if 'evolution' in data:
             m.evolution = data['evolution']
         return m
+        
     def draw_xp_bar(self, surface, x, y):
         # background
         bg_rect = pygame.Rect(x, y, self.xp_bar_width, self.xp_bar_height)
